@@ -26,10 +26,12 @@ def tweaker(reader):
 reload(sys)
 sys.setdefaultencoding('UTF8')
 
-es = Elasticsearch('http://caplan-es.cezdata.corp:80/')
+es = Elasticsearch('http://es-http.oos.svc.kube5.corp:80/')
 
-with open('zbx_attr_all.csv') as f:
-    reader = csv.DictReader(f, delimiter='#')
+with open('netstat.csv') as f:
+    reader = csv.DictReader(f, delimiter=';')
 #    for i in tweaker(reader):
-#       print i
-    helpers.bulk(es, tweaker(reader), index='caplan', doc_type='srv-attr')
+#    for i in reader:
+#        print i
+#    helpers.bulk(es, tweaker(reader), index='caplan', doc_type='srv-attr')
+    helpers.bulk(es, reader, index='etumigr', doc_type='netstat')
